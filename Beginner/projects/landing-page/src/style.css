@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #cbd5f5;
+}
+
+.nav-btn {
+  padding: 10px 20px;
+  border: none;
+  background: #ff5c8a;
+  color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px 60px;
+  background: linear-gradient(135deg, #2563eb, #1e3a8a);
+}
+
+.hero-text {
+  max-width: 550px;
+}
+
+.hero-text h2 {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+.hero-text p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #e0e7ff;
+}
+
+.cta-btn {
+  padding: 15px 30px;
+  background: #ff5c8a;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  gap: 15px;
+  margin-top: 40px;
+  font-size: 14px;
+  color: #e5e7eb;
+}
+
+/* Hero Image */
+.hero-image > img {
+  width: 260px;
+  height: 340px;
+  /* background: #020617; */
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.mockup span {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 60px;
+  background: #020617;
+}
+
+.stats h3 {
+  font-size: 32px;
+  color: #38bdf8;
+}
+
+.stats p {
+  margin-top: 5px;
+  color: #cbd5f5;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: #020617;
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-image {
+    margin-top: 40px;
+  }
+
+  nav {
+    display: none;
+  }
+}
