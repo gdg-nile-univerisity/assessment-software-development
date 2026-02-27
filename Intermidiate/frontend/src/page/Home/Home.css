@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: #ffffff;
+}
+
+*::selection {
+  background: #000000;
+  color: #FFC300;
+  text-shadow: none;
+}
+
+body {
+    /* border-radius: ; */
+  color: #213547;
+  background: #ffc71f;
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: center; /* center vertically */
+  min-height: 100vh; /* full viewport height */
+  margin: 0;
+  cursor: none;
+}
+
+
+
+.cursor-dot {
+  background: white;
+}
+
+.cursor-ring {
+  border: 2px solid white;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  /* padding: 0.6em 1.2em; */
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+
+#home_page_outer {
+    border-radius: 0.35rem;
+  background: #ffc71f;
+  display: flex; /* use flex instead of grid for better centering */
+  justify-content: center; /* center inner content horizontally */
+  align-items: center; /* center inner content vertically */
+  padding: 2%;
+  box-sizing: border-box; /* include padding in width/height */
+  position: relative; /* safe positioning */
+}
+
+h2 {
+  font-family: "Google Sans Flex", sans-serif;
+  font-size: 5vw;
+  font-weight: normal;
+}
+
+p {
+  color: #ffffff9e;
+}
+
+#home_page_inner {
+  border: solid black 0.25px;
+  color: white;
+  border-radius: 0.45rem;
+
+  /* responsive width */
+  width: 95vw; /* 90% of viewport width */
+  max-width: 95%; /* fallback in case viewport is tiny */
+
+  /* height */
+  min-height: 90vh; /* at least 90% of viewport height */
+
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  align-items: center;
+  justify-content: center; /* vertical centering */
+  text-align: center;
+
+  /* Glass effect */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); */
+}
+
+@media (min-width: 1000px) {
+  #home_page_inner {
+    padding: 2%;
+  }
+}
+
+img#mascot {
+  width: 6%;
+  display: block; /* ensures no weird inline spacing */
+  margin: 0 auto; /* center the image */
+}
+
+img#lnd_pge {
+  width: 30%;
+  display: block;
+  border-radius: 0.55rem;
+  margin: 0 auto; /* center the image */
+}
+
+@media (max-width: 1000px) {
+  img#mascot {
+    width: 12%;
+  }
+
+  img#lnd_pge {
+    width: 60%; /* adjust landing page image for smaller screens */
+  }
+}
+
+#home_btns {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem; /* spacing between buttons */
+  justify-content: center; /* center buttons */
+  flex-wrap: wrap; /* wrap on small screens */
+}
+
+#home_btns button {
+  padding: 0.8em 1.5em;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  /* Glass effect */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+    cursor: none;
+  /* Color / Text */
+  color: #e0f0ff;
+  transition: all 0.3s ease;
+}
+
+#home_btns button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+#fig-ico{
+    color: rgba(0, 0, 0, 0.728)
+}
+
+#fig-ico:hover{
+    color: rgba(0, 0, 0, 0.386)
+}
