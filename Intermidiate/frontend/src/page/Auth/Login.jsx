@@ -2,12 +2,15 @@ import React from "react";
 import Pointer from "../../component/Pointer";
 import "./Login.css";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Login() {
-  const [email, setEmail] = useState("");
+  const [User, setUser] = useState("");
   const [create_a_password, set_create_a_password] = useState(".");
   const [confirm_a_password, set_confirm_a_password] = useState("");
   const [match, setMatch] = useState(false);
+
+  const [changeed_val, set_changed_val] = useState(true);
 
   useEffect(() => {
     if (create_a_password === "" && confirm_a_password === "") {
@@ -17,16 +20,30 @@ function Login() {
     }
   }, [create_a_password, confirm_a_password]);
 
-  function handleSubmit(e) {
-      e.preventDefault();
-      
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-      if (match) {
-          location.assign("/dashboard");
-          
-    }
-      else {
-          return
+    if (match && confirm_a_password != "" || confirm_a_password != " ") {
+
+      try {
+        
+        const response = await axios.post("http://localhost:3500/all/user", {
+          name: User,
+          password: confirm_a_password,
+        });
+        console.log(response);
+
+        setTimeout(() => {
+            location.assign("/dashboard")
+        }, 1000);
+
+        
+      } catch (error) {
+        console.error(error.message)
+      }
+    } else {
+      alert("Fill in a valid password")
+      return;
     }
   }
 
@@ -50,15 +67,15 @@ function Login() {
 
         <main>
           <span>
-            <label htmlFor="">Email Address</label>
+            <label htmlFor="">Username</label>
             <br />
             <input
-              value={email}
+              value={User}
               type="text"
               name=""
               id=""
               onChange={(e) => {
-                setEmail(e.target.value);
+                setUser(e.target.value);
               }}
             />
           </span>
@@ -79,7 +96,7 @@ function Login() {
           <span>
             <label htmlFor="">Confirm Password</label>
             <br />
-            <input 
+            <input
               type="password"
               name=""
               id=""

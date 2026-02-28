@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+.fade_a_bit{
+  opacity: 0.5;
+}
+
 #circles .circle {
   width: 8px; /* size of the mini circle */
   height: 8px;

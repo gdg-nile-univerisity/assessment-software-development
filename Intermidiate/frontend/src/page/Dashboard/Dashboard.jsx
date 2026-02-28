@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import quote_of_the_day from "../../../public/quotes";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,6 +21,7 @@ import cloud from "./../../assets/cute_cloud.png";
 import axios from "axios";
 
 function Dashboard() {
+  const fade_me = useRef(null);
   const pop_up_ref = useRef(null);
   const fill_up = useRef(null);
   const [search_city,set_search_city] = useState("")
@@ -32,7 +34,6 @@ function Dashboard() {
     "Work on Backend",
     "Revise Networking",
   ]);
-
   const apiKey = "fb6356856934ea0586921de06e6d397d";
   const the_date = new Date();
   const day_in_numbers = the_date.getDay();
@@ -122,10 +123,12 @@ function Dashboard() {
     const fetchCalendar = async () => {
       try {
 
-        // This Api is for the calendar
-        const res = await axios.get("http://localhost:3500/all/calendar");
-        set_my_cal(res.data);
-        console.log(res.data);
+       
+          // This Api is for the calendar
+          const res = await axios.get("http://localhost:3500/all/calendar");
+          set_my_cal(res.data);
+          console.log(res.data);  
+      
         
        
 
@@ -147,9 +150,15 @@ function Dashboard() {
   const [the_desc , set_the_desc] = useState(0);
 
   const handleInput = async (e) => {
+
+
     if (e.key === "Enter") {
-  
+         fade_me.current.classList.add('fade_a_bit');
+      
       const my_city = await get_the_weather(search_city);
+      
+      setTimeout(() => {
+      fade_me.current.classList.remove('fade_a_bit');
   
       const {
         name: city,
@@ -161,6 +170,9 @@ function Dashboard() {
       set_the_humidity(humidity);
       set_city(city);
       set_the_desc(description);
+      }, 500);
+
+
     }
   };
 
@@ -169,6 +181,9 @@ function Dashboard() {
   function dark_trigger() {
     dark_mode.current.classList.toggle("dark-mode");
   }
+
+  const criteria = Math.floor(Math.random() * quote_of_the_day.length);
+
 
 
 
@@ -185,15 +200,11 @@ function Dashboard() {
           </div>
 
           <nav>
-            <li>
-              <FontAwesomeIcon icon={faGear} />
-            </li>
+          
             <li>
               <FontAwesomeIcon icon={faLightbulb} onClick={() => dark_trigger() } />
             </li>
-            <li>
-              <FontAwesomeIcon icon={faMeh} />
-            </li>
+            
           </nav>
         </header>
 
@@ -209,7 +220,9 @@ function Dashboard() {
               <br />
               <div id="days_message">
                 <p id="message">
-                  Stay consistent. Stay sharp. That’s real growth
+                  {
+                    quote_of_the_day[criteria]
+                  }
                 </p>
                 <br />
               </div>
@@ -257,9 +270,9 @@ function Dashboard() {
           {/* The Side Bar #1 */}
           <aside id="aside-2">
             <div class="house split">
-              <article>
+              <article ref={fade_me} className="">
                 {/* This part let's you pick a country */}
-                <div id="pick_country">
+                <div id="pick_country" >
                   <p>Weather</p>
 
                   <span id="search_me">
@@ -272,7 +285,7 @@ function Dashboard() {
                   <h1>{the_temp ? the_temp : 0}°C</h1>
                   <h2>{the_desc ? the_desc: <p>No data yet</p>}</h2>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      It's a lovely day!
                     </p>
                   </span>
 
