@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faClose,
   faGear,
   faPenFancy,
   faDroplet,
@@ -16,8 +17,13 @@ import "./Dashboard.css";
 import avatar from "./../../assets/avatar.png";
 import fire from "./../../assets/fire.png";
 import cloud from "./../../assets/cute_cloud.png";
+import axios from "axios";
 
 function Dashboard() {
+  const pop_up_ref = useRef(null);
+  const fill_up = useRef(null);
+  const [search_city,set_search_city] = useState("")
+  const [final_city,set_final_city] = useState("")
   const [tasks, setTasks] = useState([
     "Grind LeetCode",
     "Study Java",
@@ -27,8 +33,11 @@ function Dashboard() {
     "Revise Networking",
   ]);
 
+  const apiKey = "fb6356856934ea0586921de06e6d397d";
   const the_date = new Date();
   const day_in_numbers = the_date.getDay();
+  const [current_task, set_current_task] = useState("");
+  const [my_cal, set_my_cal] = useState([]);
 
   let day_in_words;
 
@@ -68,19 +77,106 @@ function Dashboard() {
     }
   };
 
-   const handlePrevious = () => {
+  const handlePrevious = () => {
     setStartIndex((prev) =>
-      prev - itemsPerPage >= 0
-        ? prev - itemsPerPage
-        : prev
+      prev - itemsPerPage >= 0 ? prev - itemsPerPage : prev,
     );
   };
 
+  const change_curr_task = (e) => {
+    set_current_task(e.target.value);
+  };
+
+  function clear_pop() {
+    pop_up_ref.current.classList.toggle("show_cover");
+  }
+
+  function add_task() {
+    const task_in_safe = tasks;
+    task_in_safe.push(current_task);
+    clear_pop();
+  }
+  
+  function task_init() {
+    fill_up.current.focus()
+    clear_pop();
+  }
+
+ async function get_the_weather(city) {
+     // This Api is for the Weather
+     try {
+      const res_weather = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+      );
+    
+      return res_weather.data;
+    
+    } catch (error) {
+      console.error("Weather fetch failed:", error);
+      return null;
+    }
+  }
+
+
+  useEffect(() => {
+    const fetchCalendar = async () => {
+      try {
+
+        // This Api is for the calendar
+        const res = await axios.get("http://localhost:3500/all/calendar");
+        set_my_cal(res.data);
+        console.log(res.data);
+        
+       
+
+
+      } catch (e) {
+        alert("We have a problem fetching calendar");
+      }
+    };
+    fetchCalendar();
+  }, []);
+
+  const find_a_city = (e) => {
+    set_search_city(e.target.value);
+  }
+
+  const [the_temp , set_the_temp] = useState(0);
+  const [the_humidity , set_the_humidity] = useState(0);
+  const [the_city , set_city] = useState(0);
+  const [the_desc , set_the_desc] = useState(0);
+
+  const handleInput = async (e) => {
+    if (e.key === "Enter") {
+  
+      const my_city = await get_the_weather(search_city);
+  
+      const {
+        name: city,
+        main: { temp, humidity },
+        weather: [{ description }]
+      } = my_city;
+  
+      set_the_temp((temp - 273).toFixed());
+      set_the_humidity(humidity);
+      set_city(city);
+      set_the_desc(description);
+    }
+  };
+
+  const dark_mode = useRef(null);
+
+  function dark_trigger() {
+    dark_mode.current.classList.toggle("dark-mode");
+  }
+
+
+
   return (
-    <section id="dashboard_outer">
+    <section id="dashboard_outer" ref={dark_mode} className="dark-mode">
       <Pointer />
 
-      <section id="dashboard_inner">
+      <section className="dashboard_inner ">
         <header>
           <div id="circles">
             <span className="circle"></span>
@@ -93,7 +189,7 @@ function Dashboard() {
               <FontAwesomeIcon icon={faGear} />
             </li>
             <li>
-              <FontAwesomeIcon icon={faLightbulb} />
+              <FontAwesomeIcon icon={faLightbulb} onClick={() => dark_trigger() } />
             </li>
             <li>
               <FontAwesomeIcon icon={faMeh} />
@@ -110,18 +206,18 @@ function Dashboard() {
               <div id="day_of_the_week">
                 <h2>It's {day_in_words}</h2>
               </div>
-
+              <br />
               <div id="days_message">
                 <p id="message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea
-                  commodi quos deserunt reiciendis quis id.
+                  Stay consistent. Stay sharp. That’s real growth
                 </p>
+                <br />
               </div>
 
               <div id="control_btn">
-                <button>Pomodoro</button>
+                {/* <button>Pomodoro</button> */}
 
-                <button>Set Task</button>
+                <button onClick={() => task_init()}>Set Task</button>
               </div>
             </div>
 
@@ -142,37 +238,9 @@ function Dashboard() {
               </div>
 
               <div id="calendar_num">
-                <span className="number">1</span>
-                <span className="number">2</span>
-                <span className="number">3</span>
-                <span className="number">4</span>
-                <span className="number">5</span>
-                <span className="number">6</span>
-                <span className="number">7</span>
-                <span className="number">8</span>
-                <span className="number">9</span>
-                <span className="number">10</span>
-                <span className="number">11</span>
-                <span className="number">12</span>
-                <span className="number">13</span>
-                <span className="number">14</span>
-                <span className="number">15</span>
-                <span className="number">16</span>
-                <span className="number">17</span>
-                <span className="number">18</span>
-                <span className="number">19</span>
-                <span className="number">20</span>
-                <span className="number">21</span>
-                <span className="number">22</span>
-                <span className="number">23</span>
-                <span className="number">24</span>
-                <span className="number">25</span>
-                <span className="number">26</span>
-                <span className="number">27</span>
-                <span className="number">28</span>
-                <span className="number">29</span>
-                <span className="number">30</span>
-                <span className="number">31</span>
+                {my_cal[0]?.days.map((i) => (
+                  <span className="number">{i + 1}</span>
+                ))}
               </div>
             </div>
 
@@ -195,14 +263,14 @@ function Dashboard() {
                   <p>Weather</p>
 
                   <span id="search_me">
-                    <input type="text" />
+                    <input type="text" onKeyDown={(e) => handleInput(e)} onChange={(e) => find_a_city(e)} />
                   </span>
                 </div>
 
                 <div id="display_the_weather">
                   <span>
-                    <h1>12 °C</h1>
-                    <h2>Cloudy</h2>
+                  <h1>{the_temp ? the_temp : 0}°C</h1>
+                  <h2>{the_desc ? the_desc: <p>No data yet</p>}</h2>
                     <p>
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     </p>
@@ -218,15 +286,7 @@ function Dashboard() {
                   <div id="actual_add_info">
                     <span>
                       <FontAwesomeIcon icon={faDroplet} />
-                      <p>64</p>
-                    </span>
-                    <span>
-                      <FontAwesomeIcon icon={faWind} />
-                      <p>64</p>
-                    </span>
-                    <span>
-                      <FontAwesomeIcon icon={faCloud} />
-                      <p>64</p>
+                      <p>{ the_humidity && the_humidity || 0}</p>
                     </span>
                   </div>
                 </div>
@@ -242,16 +302,17 @@ function Dashboard() {
                         <input type="checkbox" />
                       </span>
                     ))}
-                  
+
                   <div id="next_prev">
-                <button onClick={handlePrevious} style={{ marginTop: "10px" }}>
-
-                      <FontAwesomeIcon icon={faArrowLeft}/>
-                </button>
-                <button onClick={handleNext} style={{ marginTop: "10px" }}>
-
-                      <FontAwesomeIcon icon={faArrowRight}/>
-                </button>
+                    <button
+                      onClick={handlePrevious}
+                      style={{ marginTop: "10px" }}
+                    >
+                      <FontAwesomeIcon icon={faArrowLeft} />
+                    </button>
+                    <button onClick={handleNext} style={{ marginTop: "10px" }}>
+                      <FontAwesomeIcon icon={faArrowRight} />
+                    </button>
                   </div>
                 </div>
               </article>
@@ -282,6 +343,36 @@ function Dashboard() {
             </div>
           </aside>
         </main>
+      </section>
+
+      <section ref={pop_up_ref} className="dashboard_popup_cover">
+        <div id="dashboard_popup_inner">
+          <div id="close_space">
+            <p>
+              <FontAwesomeIcon icon={faClose} onClick={() => clear_pop()} />
+            </p>
+          </div>
+
+          <br />
+
+          <div id="pop_up_caption">
+            <h3>Write Out A Task</h3>
+            <p>This Popup lets you write out a task</p>
+          </div>
+
+          <br />
+
+          <div id="fill_out_task">
+            <label>My Task</label>
+
+            <input type="text" ref={fill_up} onChange={(e) => change_curr_task(e)} />
+          </div>
+
+          <button id="confirm_task" onClick={() => add_task()}>
+            {" "}
+            Accept
+          </button>
+        </div>
       </section>
     </section>
   );

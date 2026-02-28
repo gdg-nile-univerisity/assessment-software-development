@@ -43,7 +43,9 @@
   list-style: none;
 }
 
-#dashboard_outer #dashboard_inner {
+#dashboard_outer .dashboard_inner {
+  transition: all 0.2s linear;
+
   background: white;
   border-radius: 0.35rem;
   padding: 10px;
@@ -52,20 +54,20 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
-#dashboard_outer #dashboard_inner header {
+#dashboard_outer .dashboard_inner header {
   border: none;
   border-bottom: solid 0.5px;
   display: flex;
   justify-content: space-between;
 }
 
-#dashboard_outer #dashboard_inner nav {
+#dashboard_outer .dashboard_inner nav {
   display: flex;
   gap: 1.5vw;
   padding: 0.55%;
 }
 
-#dashboard_outer #dashboard_inner nav li:hover {
+#dashboard_outer .dashboard_inner nav li:hover {
   opacity: 0.4;
 }
 
@@ -361,7 +363,7 @@ img[alt="fire"] {
   gap: 1vw;
 }
 
-#dashboard_inner input {
+.dashboard_inner input {
   padding: 1%;
 }
 
@@ -399,4 +401,155 @@ img[alt="fire"] {
   border: solid black;
   background: #000;
   color: white;
+}
+
+.dashboard_popup_cover{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.844);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard_popup_cover.show_cover{
+  display: flex;
+}
+
+
+#dashboard_popup_inner{
+  width: 40%;
+  height: 40%;
+  background: white;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.208);
+  padding: 2%;
+  border-radius: 1.3rem;
+}
+
+#dashboard_popup_inner p{
+  color: #00000089;
+}
+
+#close_space{
+  padding-bottom: 2%;
+  margin-bottom: 2%;
+}
+
+#fill_out_task{
+  height: 30%;
+  display: flex;
+  gap: 10%;
+  flex-direction: column;
+}
+
+#fill_out_task input{
+  width: 100%;
+  height: 45%;
+  border-radius: 2rem;
+  padding: 2%;
+  border: solid 0.01px  #00000044;
+}
+
+#confirm_task {
+  background-color: #f4b400; /* soft royal gold */
+  color: #222;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 6px 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#confirm_task:hover {
+  background-color: #e09e00;
+  transform: translateY(-1px);
+}
+
+#confirm_task:active {
+  transform: scale(0.97);
+}
+
+/* =============================== */
+/* 🌙 DARK MODE FOR YOUR DASHBOARD */
+/* =============================== */
+
+#dashboard_outer.dark-mode {
+  background: #0f0f0f;
+}
+
+/* Main container */
+#dashboard_outer.dark-mode .dashboard_inner {
+  background: #181818;
+  box-shadow: 0 8px 25px rgba(255, 191, 0, 0.15);
+  color: #f2e6b3;
+}
+
+/* Boxes and cards */
+#dashboard_outer.dark-mode .box,
+#dashboard_outer.dark-mode .house,
+#dashboard_outer.dark-mode #outer_todo,
+#dashboard_outer.dark-mode #dashboard_popup_inner {
+  background: #1f1f1f;
+  border: 1px solid #3d3200;
+  color: #f2e6b3;
+}
+
+/* Fix paragraphs that were forced black */
+#dashboard_outer.dark-mode p,
+#dashboard_outer.dark-mode h1,
+#dashboard_outer.dark-mode h2,
+#dashboard_outer.dark-mode h3,
+#dashboard_outer.dark-mode span,
+#dashboard_outer.dark-mode label {
+  color: #f2e6b3;
+}
+
+/* Override hard-coded black text */
+#dashboard_outer.dark-mode .house.split p,
+#dashboard_outer.dark-mode #aside-1 #days_message #message {
+  color: #d4a017;
+  opacity: 1;
+}
+
+/* Calendar grid */
+#dashboard_outer.dark-mode #calendar_num .number {
+  border: 1px solid #5c4a00;
+  color: #ffdf70;
+}
+
+/* Inputs */
+#dashboard_outer.dark-mode input {
+  background: rgba(255, 255, 255, 0.118);
+  border: 1px solid #5c4a00;
+  color: #ffffff;
+}
+
+/* Buttons */
+#dashboard_outer.dark-mode button {
+  background: #d4a017;
+  color: #111;
+  border: none;
+}
+
+#dashboard_outer.dark-mode #inner_todo #next_prev button {
+  background: #ffbf00;
+  color: #111;
+}
+
+/* Popup overlay */
+#dashboard_outer.dark-mode .dashboard_popup_cover {
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+#dashboard_outer.dark-mode .cursor-dot {
+  background: white;
+}
+
+#dashboard_outer.dark-mode .cursor-ring {
+  border: 2px solid white;
 }
